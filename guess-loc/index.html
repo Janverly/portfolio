@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Guess the Location photo guessing game" />
+    <title>Guess the Location | Keep them guessing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home"
+        ><span class="brand-pin">⌖</span>guess<span>the</span>location</a
+      >
+      <nav>
+        <button class="nav-link active" data-view="play">Play</button
+        ><button class="nav-link" data-view="places">Places</button
+        ><button class="nav-link" data-view="scores">Scores</button>
+      </nav>
+      <div class="user-area">
+        <span class="streak">🔥 4 day streak</span
+        ><span class="user-avatar">JB</span><b>Janverly</b>
+      </div>
+    </header>
+    <main>
+      <section class="view active" id="playView">
+        <div class="play-heading">
+          <div>
+            <p class="eyebrow">THE WORLD, UNLABELED</p>
+            <h1>Where in the world<br /><em>was this?</em></h1>
+            <p class="intro">
+              A photo. A hidden place. Your best guess. Do not zoom too hard.
+            </p>
+          </div>
+          <div class="score-box">
+            <span>YOUR SCORE</span><strong id="totalScore">1,840</strong
+            ><small>+120 this week</small>
+          </div>
+        </div>
+        <div class="game-layout">
+          <section class="mystery-card">
+            <div class="photo-wrap">
+              <img
+                id="mysteryImage"
+                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85"
+                alt="Mystery travel photo"
+              />
+              <div class="photo-stamp">MYSTERY #019</div>
+              <div class="blur-answer" id="answerShield">
+                <span>LOCATION HIDDEN</span><small>Make your guess first</small>
+              </div>
+            </div>
+            <div class="mystery-info">
+              <div>
+                <p class="eyebrow">
+                  POSTED BY <strong id="postAuthor">ANONYMOUS_TRAVELER</strong>
+                </p>
+                <h2 id="mysteryTitle">A road that feels like a beginning.</h2>
+                <p id="mysteryCaption">
+                  No clues in the caption. Just the feeling of a long drive and
+                  somewhere new.
+                </p>
+              </div>
+              <div class="mystery-meta">
+                <span>♡ <b id="guessCount">18</b> guesses</span
+                ><span>Posted 21 min ago</span>
+              </div>
+            </div>
+            <div class="guess-panel" id="guessPanel">
+              <p class="eyebrow">YOUR GUESS</p>
+              <div class="guess-row">
+                <div class="guess-input">
+                  <span>⌖</span
+                  ><input
+                    id="guessInput"
+                    placeholder="Type a city, place, or country"
+                    autocomplete="off"
+                  /><button id="guessSubmit">Guess</button>
+                </div>
+                <button class="hint-button" id="hintButton">? Hint</button>
+              </div>
+              <small class="guess-note"
+                >You have one guess per mystery. Choose wisely.</small
+              >
+            </div>
+            <div class="reveal-panel hidden" id="revealPanel">
+              <div>
+                <p class="eyebrow">THE ANSWER WAS</p>
+                <h3 id="answerText">Queenstown, New Zealand</h3>
+                <p id="resultText">That was close enough to earn points.</p>
+              </div>
+              <div class="reveal-actions">
+                <strong id="earnedPoints">+120 XP</strong>
+                <button class="primary-button" id="playAgainButton">
+                  Play again ↗
+                </button>
+              </div>
+            </div>
+          </section>
+          <aside class="side-column">
+            <section class="panel how-card">
+              <div class="panel-title">
+                <h3>How it works</h3>
+                <span>01 / 03</span>
+              </div>
+              <div class="how-step">
+                <i>01</i>
+                <p>
+                  <b>Study the photo</b
+                  ><small>Look for signs, landscapes, and tiny clues.</small>
+                </p>
+              </div>
+              <div class="how-step">
+                <i>02</i>
+                <p>
+                  <b>Make your guess</b
+                  ><small>Enter a city, country, or exact place.</small>
+                </p>
+              </div>
+              <div class="how-step">
+                <i>03</i>
+                <p>
+                  <b>See how close you got</b
+                  ><small>Earn more points for sharper guesses.</small>
+                </p>
+              </div>
+            </section>
+            <section class="panel recent-card">
+              <div class="panel-title">
+                <h3>Recent guesses</h3>
+                <button data-view="scores">See all →</button>
+              </div>
+              <div id="recentGuesses"></div>
+            </section>
+            <section class="panel places-card">
+              <div class="panel-title">
+                <h3>Popular places</h3>
+                <span>THIS WEEK</span>
+              </div>
+              <div class="place-bars" id="placeBars"></div>
+            </section>
+          </aside>
+        </div>
+      </section>
+      <section class="view" id="placesView">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">THE ATLAS</p>
+            <h2>Places people <em>love.</em></h2>
+            <p>Every revealed answer becomes part of the community map.</p>
+          </div>
+          <button class="outline-button" data-view="play">
+            ← Back to game
+          </button>
+        </div>
+        <div class="place-grid" id="placesGrid"></div>
+      </section>
+      <section class="view" id="scoresView">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">THE CLOSEST GUESSES</p>
+            <h2>Scoreboard <em>season.</em></h2>
+            <p>The sharpest eyes in the room.</p>
+          </div>
+          <div class="score-box dark">
+            <span>YOUR RANK</span><strong>#08</strong
+            ><small>Keep playing to climb</small>
+          </div>
+        </div>
+        <div class="score-layout">
+          <section class="panel leaderboard">
+            <div class="panel-title">
+              <h3>Global leaderboard</h3>
+              <span>WEEK 38</span>
+            </div>
+            <div id="leaderboard"></div>
+          </section>
+          <section class="panel score-guide">
+            <p class="eyebrow">SCORING</p>
+            <h3>Closer is better.</h3>
+            <p>
+              Guess the exact place for the maximum score. A country-level guess
+              still gets you on the board.
+            </p>
+            <div class="score-rule"><b>500 XP</b><span>Exact place</span></div>
+            <div class="score-rule"><b>250 XP</b><span>Same city</span></div>
+            <div class="score-rule"><b>100 XP</b><span>Same country</span></div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <div class="modal-backdrop" id="postModal">
+      <div class="modal">
+        <button class="close-button" id="closeModal">×</button>
+        <p class="eyebrow">HIDE A PLACE</p>
+        <h2>Post a mystery.</h2>
+        <form id="postForm">
+          <label
+            >Photo URL<input
+              name="image"
+              required
+              placeholder="https://images.unsplash.com/..." /></label
+          ><label
+            >Post title<input
+              name="title"
+              required
+              placeholder="A quiet corner of the world" /></label
+          ><label
+            >Real location<input
+              name="location"
+              required
+              placeholder="City, Country" /></label
+          ><label
+            >Caption<textarea
+              name="caption"
+              placeholder="Leave a clue, or don't..."
+            ></textarea></label
+          ><button class="primary-button" type="submit">
+            Publish mystery ↗
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

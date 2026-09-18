@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SnapBox digital photobooth for capturing, styling, and saving photo sessions."
+    />
+    <title>SnapBox | Digital Photobooth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#booth" aria-label="SnapBox home"
+        ><span class="brand-dot"></span>SNAP<span>BOX</span></a
+      >
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-screen="booth">Photobooth</button>
+        <button class="nav-link" data-screen="sessions">
+          My sessions <span class="session-count" id="sessionCount">0</span>
+        </button>
+      </nav>
+      <div class="topbar-note">DIGITAL MEMORY MAKER <span>✳</span></div>
+    </header>
+
+    <main>
+      <section class="screen booth-screen active" id="boothScreen">
+        <div class="intro-copy">
+          <p class="kicker">YOUR MOMENT, YOUR WAY</p>
+          <h1>Make a little<br /><em>memory.</em></h1>
+          <p class="intro-text">
+            Three frames, one good story. Set the scene and let SnapBox catch
+            the mood.
+          </p>
+          <div class="stepper" aria-label="Photobooth steps">
+            <span class="current">01</span><i></i><span>02</span><i></i
+            ><span>03</span><i></i><span>04</span>
+          </div>
+        </div>
+
+        <div class="booth-card">
+          <div class="booth-toolbar">
+            <span class="live-dot"></span
+            ><span id="cameraStatus">CAMERA READY</span
+            ><span class="toolbar-spacer"></span
+            ><button class="text-control" id="flipCamera" type="button">
+              ↻ FLIP
+            </button>
+          </div>
+          <div class="camera-window" id="cameraWindow">
+            <video id="camera" autoplay playsinline muted></video>
+            <div class="camera-placeholder" id="cameraPlaceholder">
+              <span class="placeholder-icon">◎</span
+              ><strong>Camera is waiting</strong
+              ><small id="cameraHelp"
+                >Allow camera access to start your session</small>
+              <div class="camera-start-actions">
+                <button class="outline-button" id="startCamera" type="button">
+                  Enable camera
+                </button>
+              </div>
+            </div>
+            <div class="camera-overlay">
+              <span>SNAPBOX / 2026</span><span id="shotCounter">0 / 3</span>
+            </div>
+            <div class="countdown" id="countdown" aria-live="polite"></div>
+          </div>
+          <div class="capture-row">
+            <button
+              class="shutter"
+              id="captureButton"
+              type="button"
+              aria-label="Take photo"
+            >
+              <span></span>
+            </button>
+            <div class="capture-copy">
+              <strong id="captureLabel">Take your first photo</strong
+              ><span id="captureHint">Your camera is ready when you are</span>
+            </div>
+            <div class="photo-save-actions">
+              <button
+                class="save-photo-button design-strip-button"
+                id="designStripButton"
+                type="button"
+              >
+                Choose strip
+              </button>
+              <button
+                class="save-photo-button"
+                id="saveAllButton"
+                type="button"
+                disabled
+              >
+                Save ↓
+              </button>
+            </div>
+          </div>
+          <div
+            class="thumbnail-row"
+            id="thumbnailRow"
+            aria-label="Captured photos"
+          ></div>
+        </div>
+      </section>
+
+      <section class="screen customize-screen" id="customizeScreen">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">THE GOOD PART</p>
+            <h2>Style your <em>strip.</em></h2>
+          </div>
+          <button class="back-button" data-screen="booth">
+            ← Back to camera
+          </button>
+        </div>
+        <div class="customize-layout">
+          <div class="strip-stage">
+            <div class="photo-strip" id="photoStrip">
+              <div class="strip-head">
+                SNAP<span>BOX</span><small>YOUR MOMENT, YOUR WAY</small>
+              </div>
+              <div class="strip-photos" id="stripPhotos"></div>
+              <p class="strip-caption" id="stripCaptionPreview">
+                A little memory
+              </p>
+              <div class="strip-footer">SNAPBOX <span>✳</span> 2026</div>
+            </div>
+          </div>
+          <div class="controls-panel">
+            <div class="control-group">
+              <div class="control-label">
+                <span>01</span><strong>Strip design</strong>
+              </div>
+              <div class="choice-grid template-choices">
+                <button class="choice active" data-template="classic">
+                  <span class="design-preview design-classic"
+                    ><i></i><i></i><i></i></span
+                  ><b>Classic</b><small>clean + warm</small></button
+                ><button class="choice" data-template="film">
+                  <span class="design-preview design-film"
+                    ><i></i><i></i><i></i></span
+                  ><b>Film</b><small>date stamp</small></button
+                ><button class="choice" data-template="polaroid">
+                  <span class="design-preview design-polaroid"
+                    ><i></i><i></i><i></i></span
+                  ><b>Polaroid</b><small>airy + soft</small></button
+                ><button class="choice" data-template="minimal">
+                  <span class="design-preview design-minimal"
+                    ><i></i><i></i><i></i></span
+                  ><b>Minimal</b><small>black + white</small>
+                </button>
+                <button class="choice" data-template="olive">
+                  <span class="design-preview design-olive"
+                    ><i></i><i></i><i></i></span
+                  ><b>Olive</b><small>bold + playful</small>
+                </button>
+                <button class="choice" data-template="cocoa">
+                  <span class="design-preview design-cocoa"
+                    ><i></i><i></i><i></i></span
+                  ><b>Cocoa</b><small>soft + retro</small>
+                </button>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="control-label">
+                <span>02</span><strong>Filter</strong>
+              </div>
+              <div class="filter-row">
+                <button class="filter-choice active" data-filter="original">
+                  <i class="filter-swatch original"></i>Original</button
+                ><button class="filter-choice" data-filter="bw">
+                  <i class="filter-swatch bw"></i>B&amp;W</button
+                ><button class="filter-choice" data-filter="vintage">
+                  <i class="filter-swatch vintage"></i>Vintage</button
+                ><button class="filter-choice" data-filter="warm">
+                  <i class="filter-swatch warm"></i>Warm</button
+                ><button class="filter-choice" data-filter="cool">
+                  <i class="filter-swatch cool"></i>Cool
+                </button>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="control-label">
+                <span>03</span><strong>Caption</strong>
+              </div>
+              <input
+                class="caption-input"
+                id="captionInput"
+                maxlength="38"
+                value="A little memory"
+                placeholder="Write a caption..."
+              />
+            </div>
+            <div class="control-group">
+              <div class="control-label">
+                <span>04</span><strong>Background</strong>
+              </div>
+              <div class="background-row">
+                <button
+                  class="background-choice active"
+                  data-background="paper"
+                ></button
+                ><button
+                  class="background-choice blush"
+                  data-background="blush"
+                ></button
+                ><button
+                  class="background-choice ink"
+                  data-background="ink"
+                ></button
+                ><button
+                  class="background-choice lemon"
+                  data-background="lemon"
+                ></button
+                ><button
+                  class="background-choice mint"
+                  data-background="mint"
+                ></button>
+              </div>
+            </div>
+            <div class="action-row">
+              <button class="outline-button" id="retakeButton" type="button">
+                Retake photos</button
+              ><button class="outline-button" id="printButton" type="button">
+                Print strip</button
+              ><button class="outline-button" id="downloadButton" type="button">
+                Download PNG</button
+              ><button class="primary-button" id="saveButton" type="button">
+                Save session <span>↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen sessions-screen" id="sessionsScreen">
+        <div class="section-heading sessions-heading">
+          <div>
+            <p class="kicker">YOUR ARCHIVE</p>
+            <h2>My photo <em>sessions.</em></h2>
+            <p class="section-subtitle">
+              The little moments worth keeping close.
+            </p>
+          </div>
+          <button class="primary-button" data-screen="booth">
+            New session <span>+</span>
+          </button>
+        </div>
+        <div class="sessions-toolbar">
+          <span><strong id="sessionTotal">0</strong> saved sessions</span
+          ><label class="search-box"
+            ><span>⌕</span
+            ><input id="sessionSearch" placeholder="Search sessions"
+          /></label>
+        </div>
+        <div class="sessions-grid" id="sessionsGrid"></div>
+        <div class="empty-state" id="emptyState">
+          <div class="empty-mark">✳</div>
+          <h3>No memories here yet.</h3>
+          <p>Your next favorite photo strip starts with one click.</p>
+          <button class="primary-button" data-screen="booth">
+            Open photobooth <span>↗</span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="session-dialog" id="sessionDialog">
+      <form method="dialog" id="sessionForm">
+        <button class="dialog-close" value="cancel" aria-label="Close">
+          ×
+        </button>
+        <p class="kicker">SAVE TO YOUR ARCHIVE</p>
+        <h2>Name this <em>moment.</em></h2>
+        <label
+          >Session name<input
+            id="sessionName"
+            maxlength="34"
+            required
+            placeholder="Friday night out"
+        /></label>
+        <div class="dialog-actions">
+          <button class="outline-button" value="cancel">Cancel</button
+          ><button class="primary-button" id="confirmSave" value="default">
+            Save session <span>↗</span>
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
